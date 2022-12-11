@@ -36,7 +36,6 @@ def case1(lines):
         else:
             tmp = line.split(" ")
             instructions.append(([int(tmp[1]), 2]))
-    test = []
     pos = 0
     while pos < len(instructions):
         if cycle == significant_cycle:
@@ -56,8 +55,6 @@ def case1(lines):
 def case2(lines):
     result = 0
     cycle = 1
-    significant_cycle = 20
-    step_size = 40
     instructions = []
     register = 1
     for line in lines:
