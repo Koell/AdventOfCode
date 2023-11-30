@@ -25,6 +25,8 @@ def case1(lines):
     start = time.time()
     result = 0
 
+
+
     for line in lines:
         pass
     end = time.time()
