@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace AOC_2023 {
@@ -83,7 +82,6 @@ namespace AOC_2023 {
         private static int Case2(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
-
             // Your case 2 logic here
             Dictionary<int, Dictionary<string, int>> game = new Dictionary<int, Dictionary<string, int>>();
             

@@ -52,6 +52,7 @@ namespace AOC_2023 {
             DateTime startTime = DateTime.Now;
             int result = 0;
 
+            // a reverse sort would have been more elegant 
             // Your case 2 logic here
             
             Regex rx = new Regex(@"(\d)");
