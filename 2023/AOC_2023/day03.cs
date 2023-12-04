@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace AOC_2023 {
-    class Day03 {
+    public class Day03 {
 
         public static void Solver() {
             string fileName = "03";

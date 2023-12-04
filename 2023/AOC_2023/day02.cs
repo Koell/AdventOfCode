@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 
 namespace AOC_2023 {
-    class Day02 {
+    public class Day02 {
 
         public static void Solver() {
             string fileName = "02";

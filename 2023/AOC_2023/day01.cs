@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 
 namespace AOC_2023 {
-    class Day01 {
+    public class Day01 {
 
         public static void Solver() {
             string fileName = "01";
@@ -9,6 +9,9 @@ namespace AOC_2023 {
 
             List<string> testInput = Helper.ExtractList($"{inputpath}tinput_{fileName}");
             List<string> realInput = Helper.ExtractList($"{inputpath}input_{fileName}");
+            if (testInput.Count == 0) {
+                Console.WriteLine("MISSING DATA!!!");    
+            }
             Console.WriteLine("Testrun:");
             Solve(testInput);
             Console.WriteLine("\nSolution:");

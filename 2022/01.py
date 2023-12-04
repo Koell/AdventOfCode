@@ -17,7 +17,7 @@ def solve():
 
     elfs.sort(reverse=True)
     sum = elfs[0] + elfs[1] + elfs[2]
-
+    print(elfs[0])
     print(sum)
 
 solve()
