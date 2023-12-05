@@ -107,7 +107,9 @@ namespace AOC_2023 {
                 if (i == 0) {
                     foreach (Match match in rx_pair.Matches(line)) {
                         var range = match.Value.Split(" ");
-                        seeds.Add((Int64.Parse(range[0]), Int64.Parse(range[1])));
+                        var start = Int64.Parse(range[0]);
+                        var stop = start + Int64.Parse(range[1]) - 1;
+                        seeds.Add((start, stop));
                     }
                     continue;
                 }
@@ -121,22 +123,22 @@ namespace AOC_2023 {
                 } else {
                     var matches = rx_number.Matches(line);
                     var dest = Int64.Parse(matches[0].Value);
+                    var dest_end = dest + Int64.Parse(matches[2].Value) - 1;
                     var source = Int64.Parse(matches[1].Value);
-                    var step = Int64.Parse(matches[2].Value) - 1;
-                    //TODO needs improvement 
+                    var source_end = source + Int64.Parse(matches[2].Value) - 1;
                     foreach (var seed in seeds) {
-                        if (source <= seed.Item1 && seed.Item1 + seed.Item2 <= source + step) {
-                            parsed_seeds.Add((seed.Item1 - source + dest, seed.Item2));
-                        } else if (source <= seed.Item1 && seed.Item1 <= source + step) {
-                            parsed_seeds.Add((seed.Item1 - source + dest, long.Abs(seed.Item1 - (source + step))));
-                            tmp_seeds.Add(((source + step), long.Abs((seed.Item1 + seed.Item2) - (source + step))));
-                        } else if (source <= seed.Item2 && seed.Item2 <= source + step) {
-                            parsed_seeds.Add((dest, long.Abs((seed.Item1 + seed.Item2) - (source + step))));
-                            tmp_seeds.Add((seed.Item1, long.Abs(seed.Item1 - source)));
-                        } else if (source >= seed.Item1 && seed.Item2 >= source + step) {
-                            parsed_seeds.Add((dest, step));
-                            tmp_seeds.Add((seed.Item1, long.Abs(seed.Item1 - source)));
-                            tmp_seeds.Add((source + step, long.Abs((seed.Item1 + seed.Item2) - (source + step))));
+                        if (source <= seed.Item1 && seed.Item2 <= source_end) {
+                            parsed_seeds.Add((seed.Item1 - source + dest, seed.Item2 - source_end + dest_end));
+                        } else if (source <= seed.Item1 && seed.Item1 <= source_end && seed.Item2 > source_end) {
+                            parsed_seeds.Add((seed.Item1 - source + dest, source_end - source + dest));
+                            tmp_seeds.Add((source_end +1, seed.Item2));
+                        } else if (seed.Item1 < source && source <= seed.Item2 && seed.Item2 <= source_end ) {
+                            parsed_seeds.Add((dest, seed.Item2 - source_end + dest_end));
+                            tmp_seeds.Add((seed.Item1, source - 1));
+                        } else if (source > seed.Item1 && seed.Item2 > source_end) {
+                            parsed_seeds.Add((dest, dest_end));
+                            tmp_seeds.Add((seed.Item1, source -1));
+                            tmp_seeds.Add((source_end +1, seed.Item2));
                         } else {
                             tmp_seeds.Add(seed);
                         }
