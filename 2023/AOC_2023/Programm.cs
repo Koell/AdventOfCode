@@ -1,7 +1,7 @@
 namespace AOC_2023 {
     public class Programm {
         static void Main() {
-            Day05.Solver();
+            Day06.Solver();
         }
     }
 }
