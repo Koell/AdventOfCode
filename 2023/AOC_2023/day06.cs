@@ -2,32 +2,9 @@
     using System.Text.RegularExpressions;
 
     namespace AOC_2023 {
-        public class Day06 {
+        public class Day06 : Day{
 
-            public static void Solver() {
-                string fileName = "06";
-                string inputpath = Helper.GetInputPath();
-                
-                List<string> testInput = Helper.ExtractList($"{inputpath}tinput_{fileName}");
-                List<string> realInput = Helper.ExtractList($"{inputpath}input_{fileName}");
-                if (testInput.Count == 0) {
-                    Console.WriteLine("MISSING DATA!!!");    
-                }
-                Console.WriteLine("Testrun:");
-                Solve(testInput);
-                Console.WriteLine("\nSolution:");
-                Solve(realInput);
-            }
-
-            private static void Solve(List<string> input) {
-                int sol1 = Case1(input);
-                int sol2 = Case2(input);
-
-                Console.WriteLine($"case 1: {sol1}");
-                Console.WriteLine($"case 2: {sol2}");
-            }
-
-            private static int Case1(List<string> lines) {
+            protected override int Case1(List<string> lines) {
                 DateTime startTime = DateTime.Now;
                 int result = 0;
 
@@ -72,7 +49,7 @@
                 return result;
             }
 
-            private static int Case2(List<string> lines) {
+            protected override int Case2(List<string> lines) {
                 DateTime startTime = DateTime.Now;
                 int result = 0;
 

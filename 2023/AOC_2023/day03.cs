@@ -2,29 +2,9 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace AOC_2023 {
-    public class Day03 {
+    public class Day03 : Day{
 
-        public static void Solver() {
-            string fileName = "03";
-            string inputpath = Helper.GetInputPath();
-
-            List<string> testInput = Helper.ExtractList($"{inputpath}tinput_{fileName}");
-            List<string> realInput = Helper.ExtractList($"{inputpath}input_{fileName}");
-            Console.WriteLine("Testrun:");
-            Solve(testInput);
-            Console.WriteLine("\nSolution:");
-            Solve(realInput);
-        }
-
-        private static void Solve(List<string> input) {
-            int sol1 = Case1(input);
-            int sol2 = Case2(input);
-
-            Console.WriteLine($"case 1: {sol1}");
-            Console.WriteLine($"case 2: {sol2}");
-        }
-
-        private static int Case1(List<string> lines) {
+        protected override int Case1(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
 
@@ -68,7 +48,7 @@ namespace AOC_2023 {
             return result;
         }
 
-        private static int Case2(List<string> lines) {
+        protected override int Case2(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
 
@@ -84,21 +64,24 @@ namespace AOC_2023 {
                     if (item.i > 0) {
                         foreach (Match found in rx.Matches(lines[item.i - 1])) {
                             if ((found.Index >= search_start && found.Index <= search_end) ||
-                                (found.Index + found.Length -1 >= search_start && found.Index + found.Length -1 <= search_end)) {
+                                (found.Index + found.Length - 1 >= search_start &&
+                                 found.Index + found.Length - 1 <= search_end)) {
                                 found_numbers.Add(Int32.Parse(found.Value));
                             }
                         }
                     }
                     foreach (Match found in rx.Matches(lines[item.i])) {
                         if ((found.Index >= search_start && found.Index <= search_end) ||
-                            (found.Index + found.Length -1 >= search_start && found.Index + found.Length -1 <= search_end)) {
+                            (found.Index + found.Length - 1 >= search_start &&
+                             found.Index + found.Length - 1 <= search_end)) {
                             found_numbers.Add(Int32.Parse(found.Value));
                         }
                     }
                     if (item.i < lines.Count) {
-                        foreach (Match found in rx.Matches(lines[item.i+1])) {
+                        foreach (Match found in rx.Matches(lines[item.i + 1])) {
                             if ((found.Index >= search_start && found.Index <= search_end) ||
-                                (found.Index + found.Length -1 >= search_start && found.Index + found.Length -1 <= search_end)) {
+                                (found.Index + found.Length - 1 >= search_start &&
+                                 found.Index + found.Length - 1 <= search_end)) {
                                 found_numbers.Add(Int32.Parse(found.Value));
                             }
                         }
