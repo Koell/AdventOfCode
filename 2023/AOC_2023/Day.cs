@@ -19,15 +19,16 @@ namespace AOC_2023 {
         }
 
         private void Solve(List<string> input) {
-            int sol1 = Case1(input);
-            int sol2 = Case2(input);
+            Solution sol1 = Case1(input);
+            Solution sol2 = Case2(input);
 
-            Console.WriteLine($"case 1: {sol1}");
-            Console.WriteLine($"case 2: {sol2}");
+            Console.WriteLine($"case 1: \n{sol1}\n");
+            Console.WriteLine($"case 2: \n{sol2}\n");
+            Console.WriteLine($"Total time needed: {(sol1.TimeStamp + sol2.TimeStamp).TotalSeconds}\n");
         }
 
-        protected virtual int Case1(List<string> lines) => 0;
+        protected virtual Solution Case1(List<string> lines) => new Solution();
 
-        protected virtual int Case2(List<string> lines) => 0;
+        protected virtual Solution Case2(List<string> lines) => new Solution();
     }
 }

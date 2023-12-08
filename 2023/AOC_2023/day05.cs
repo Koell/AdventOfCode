@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 namespace AOC_2023 {
     public class Day05 : Day {
 
-        protected override int Case1(List<string> lines) {
+        protected override Solution Case1(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
 
@@ -50,11 +50,8 @@ namespace AOC_2023 {
             seeds.AddRange(parsed_seeds);
             seeds.Sort();
             result = (int)seeds[0];
-
-
-            TimeSpan elapsedTime = DateTime.Now - startTime;
-            Console.WriteLine($"Time needed: {elapsedTime.TotalSeconds} seconds");
-            return result;
+            
+            return new Solution(result.ToString(), DateTime.Now - startTime);
         }
 
 
@@ -67,7 +64,7 @@ namespace AOC_2023 {
             }
         }
 
-        protected override int Case2(List<string> lines) {
+        protected override Solution Case2(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
 
@@ -129,9 +126,7 @@ namespace AOC_2023 {
             seeds.Sort();
             result = (int)seeds[0].Item1;
 
-            TimeSpan elapsedTime = DateTime.Now - startTime;
-            Console.WriteLine($"Time needed: {elapsedTime.TotalSeconds} seconds");
-            return result;
+            return new Solution(result.ToString(), DateTime.Now - startTime);
         }
     }
 }

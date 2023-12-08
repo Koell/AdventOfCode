@@ -4,7 +4,7 @@ namespace AOC_2023 {
     public class Day01 : Day{
 
 
-        protected override int Case1(List<string> lines) {
+        protected override Solution Case1(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
             
@@ -24,12 +24,10 @@ namespace AOC_2023 {
                 }
             }
             
-            TimeSpan elapsedTime = DateTime.Now - startTime;
-            Console.WriteLine($"Time needed: {elapsedTime.TotalSeconds} seconds");
-            return result;
+            return new Solution(result.ToString(), DateTime.Now - startTime);
         }
 
-        protected override int Case2(List<string> lines) {
+        protected override Solution Case2(List<string> lines) {
             DateTime startTime = DateTime.Now;
             int result = 0;
 
@@ -53,9 +51,7 @@ namespace AOC_2023 {
             }
             
 
-            TimeSpan elapsedTime = DateTime.Now - startTime;
-            Console.WriteLine($"Time needed: {elapsedTime.TotalSeconds} seconds");
-            return result;
+            return new Solution(result.ToString(), DateTime.Now - startTime);
         }
 
         private string ReplaceIntStrings(string value) {
