@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace AOC_2023 {
     public partial class Day09: Day {
@@ -15,7 +14,7 @@ namespace AOC_2023 {
                 foreach (Match match in rx_number.Matches(line)) {
                     numbers.Add(long.Parse(match.Value));
                 }
-                result += calculateNextNumber(numbers);
+                result += CalculateNextNumber(numbers);
             }
 
             return new Solution(result.ToString(), DateTime.Now - startTime);
@@ -34,14 +33,14 @@ namespace AOC_2023 {
                     numbers.Add(long.Parse(match.Value));
                 }
                 numbers.Reverse();
-                result += calculateNextNumber(numbers);
+                result += CalculateNextNumber(numbers);
             }
 
             return new Solution(result.ToString(), DateTime.Now - startTime);
         }
 
 
-        private long calculateNextNumber(List<long> input) {
+        private long CalculateNextNumber(List<long> input) {
             var numbers = new List<List<long>> {
                 input
             };
@@ -61,7 +60,7 @@ namespace AOC_2023 {
             return numbers.First().Last();
         }
 
-        [GeneratedRegex("(-*\\d+)")]
+        [GeneratedRegex(@"(-?\d+)")]
         private static partial Regex NumberRegex();
     }
 }

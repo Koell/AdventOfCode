@@ -10,7 +10,7 @@ namespace AOC_2023 {
 
             // Your case 1 logic here
             var rx = new Regex(@"\d+");
-            var rx_symb = new Regex(@"[-!$%^&*()_+|~@=`{}\[\]:"";'<>?,\\\/#]");
+            var rx_symb = new Regex(@"[^.\d\w]");
             foreach (var item in lines.Select((value, i) => (value, i))) {
                 foreach (Match number in rx.Matches(item.value)) {
                     var search_length = number.Index + number.Length + 1 <= lines[item.i].Length

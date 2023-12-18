@@ -13,7 +13,6 @@ namespace AOC_2023 {
             string initialKey = "";
             Dictionary<string, List<string>> nodes = new Dictionary<string, List<string>>();
 
-
             foreach ((string line, int idx) in lines.Select((line, idx) => (line, idx))) {
                 if (line != "") {
                     if (idx == 0) {
@@ -124,21 +123,13 @@ namespace AOC_2023 {
             return new Solution(result.ToString(), DateTime.Now - startTime);
         }
         
-        static long gcd(long n1, long n2)
-        {
-            if (n2 == 0)
-            {
-                return n1;
-            }
-            else
-            {
-                return gcd(n2, n1 % n2);
-            }
+        static long gcd(long n1, long n2) {
+            return n2 == 0 ? n1 : gcd(n2, n1 % n2);
         }
 
         public static long lcm_multi(long[] numbers)
         {
-            return numbers.Aggregate((S, val) => S * val / gcd(S, val));
+            return numbers.Aggregate((s, val) => s * val / gcd(s, val));
         }
 
         [GeneratedRegex("(\\w+)")]
