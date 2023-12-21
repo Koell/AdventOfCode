@@ -29,60 +29,112 @@ namespace AOC_2023 {
                 FlipMap();
                 long result = 0;
 
-                result += TopDown(map) * 100;
-                result += DownTop(map) * 100;
-                result += TopDown(map_flipped);
-                result += DownTop(map_flipped);
+                result += FindMirror(map) * 100;
+                result += FindMirror(map_flipped);
+
+                return result;
+            }
+            public long CalculatePoints2() {
+                FlipMap();
+                long result = 0;
+
+                result += FindMirrorWithSmudge(map) * 100;
+                result += FindMirrorWithSmudge(map_flipped);
 
                 return result;
             }
 
-            private long TopDown(List<string> current_map) {
+            private long FindMirror(List<string> current_map) {
                 long result = 0;
-                int start = 0;
-                int end = current_map.Count - 1;
-                bool match = false;
-                for (; start < end; start++) {
-                    if (current_map[start] == current_map[end]) {
-                        match = true;
-                        end--;
-                    } else if (match) {
-                        match = false;
+                List<int> mirror_starts = new List<int>();
+
+                for (var i = 1; i < current_map.Count; i++) {
+                    var prev_line = current_map[i - 1];
+                    var current_line = current_map[i];
+                    if (prev_line == current_line) {
+                        mirror_starts.Add(i - 1);
                     }
                 }
-                if (match) {
-                    result = start;
-                }
 
-                return result;
-            }
-
-            private long DownTop(List<string> current_map) {
-                long result = 0;
-                int start = 0;
-                int end = current_map.Count - 1;
-                bool match = false;
-                for (; start < end; end--) {
-                    if (current_map[start] == current_map[end]) {
-                        match = true;
-                        start++;
-                    } else if (match) {
-                        match = false;
+                foreach (var start in mirror_starts) {
+                    var end = start + 1;
+                    for (var i = start; i >= 0; i--) {
+                        if (current_map[i] == current_map[end]) {
+                            if (i - 1 == -1 || end + 1 == current_map.Count) {
+                                result = start + 1;
+                                break;
+                            }
+                            end++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (result != 0) {
+                        break;
                     }
                 }
-                if (match) {
-                    result = start;
+
+                return result;
+            }
+            
+            private long FindMirrorWithSmudge(List<string> current_map) {
+                long result = 0;
+                List<int> mirror_starts = new List<int>();
+
+                for (var i = 1; i < current_map.Count; i++) {
+                    var prev_line = current_map[i - 1];
+                    var current_line = current_map[i];
+                    var comp = SmudgeDiff(prev_line, current_line);
+                    if (comp.Item1) {
+                        mirror_starts.Add(i - 1);
+                    }
+                }
+
+                foreach (var start in mirror_starts) {
+                    var end = start + 1;
+                    var smudge_count = 0;
+                    for (var i = start; i >= 0; i--) {
+                        var comp = SmudgeDiff(current_map[i], current_map[end]);
+                        smudge_count += comp.Item2;
+                        if (comp.Item1) {
+                            if (i - 1 == -1 || end + 1 == current_map.Count) {
+                                if (smudge_count == 1) {
+                                    result = start + 1;
+                                }
+                                break;
+                            }
+                            end++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (result != 0) {
+                        break;
+                    }
                 }
 
                 return result;
             }
 
+            private (bool, int) SmudgeDiff(string a, string b) {
+                int smudge_count = 0;
+                for (int i = 0; i < a.Length; i++) {
+                    if (a[i].CompareTo(b[i]) != 0) {
+                        smudge_count++;
+                    }
+                }
 
+                return (smudge_count <= 1, smudge_count);
+            }
         }
+        
+        
 
         protected override Solution Case1(List<string> lines) {
             DateTime start_time = DateTime.Now;
             long result = 0;
+
+            // Your case 1 logic here
             var new_map = new List<string>();
             var maps = new List<Map>();
 
@@ -97,7 +149,6 @@ namespace AOC_2023 {
             maps.Add(new Map(new_map));
 
             maps.ForEach(m => result += m.CalculatePoints());
-            // Your case 1 logic here
 
             return new Solution(result.ToString(), DateTime.Now - start_time);
         }
@@ -107,6 +158,20 @@ namespace AOC_2023 {
             long result = 0;
 
             // Your case 2 logic here
+            var new_map = new List<string>();
+            var maps = new List<Map>();
+
+            foreach (var line in lines) {
+                if (line.Length == 0) {
+                    maps.Add(new Map(new_map));
+                    new_map = new List<string>();
+                } else {
+                    new_map.Add(line);
+                }
+            }
+            maps.Add(new Map(new_map));
+
+            maps.ForEach(m => result += m.CalculatePoints2());
 
             return new Solution(result.ToString(), DateTime.Now - start_time);
         }
