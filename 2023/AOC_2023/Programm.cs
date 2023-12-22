@@ -3,7 +3,7 @@ using System.Reflection;
 namespace AOC_2023 {
     public class Programm {
         static void Main() {
-            string day_string = "13";
+            string day_string = "14";
             Assembly assembly = Assembly.GetExecutingAssembly();
             try {
                 Day day = assembly.CreateInstance($"AOC_2023.Day{day_string}") as Day;
